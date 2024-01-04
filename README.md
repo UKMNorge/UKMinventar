@@ -1,4 +1,4 @@
-UKMstimulering
+UKMinventar
 ===============
 
-Administrasjonssystem for UKM's stimuleringsmidler
+Administrasjonssystem for UKM's inventar
