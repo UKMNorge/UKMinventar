@@ -1,0 +1,57 @@
+
+
+<div class="container mt-4">
+    <h1>Legg til ny gjenstand</h1>
+    <form class="needs-validation"  action="?page=UKMinventar" method="POST">
+        <div class="form-group row">
+            <div class="col-md-6 mb-4">
+                <label for="category">Kategori:</label>
+                <select id="category" name="category" class="form-control" required>
+                        <option value="" selected="true" disabled>Velg kategori</option>
+                        {% for category in categories %}
+                            <option value="{{ category['id'] }}">{{ category['name'] }}
+                        {% endfor %}
+                </select>
+            </div>    
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label for="item">Gjenstand:</label>
+                <input type="text" id="item" name="item" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label for="item">Annet:</label>
+                <input type="text" id="other" name="other" placeholder="Serienr, andre opplysninger?" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="location">Lokasjon:</label>
+                <select id="location" name="location" class="form-control" required>
+                        <option value="" selected="true" disabled>Velg lokasjon</option>
+                        {% for location in locations %}
+                            <option value="{{ location['id'] }}">{{ location['name'] }}
+                        {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label for="price">Anskaffelses pris:</label>
+                <input type="number" id="price" name="price" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label for="date">Dato kjøpt:</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn btn-success">Lagre</button>
+        </div>
+        <input type="hidden" name="fromcreate" value="true" />
+    </form>
+</div>

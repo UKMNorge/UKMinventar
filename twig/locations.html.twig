@@ -1,0 +1,145 @@
+<style>
+body {
+	color: #566787;
+	background: #f5f5f5;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 13px;
+}
+body > .container {
+  padding-top: 40px;
+  background-color: white;
+}
+.table-responsive {
+    margin: 30px 0;
+}
+
+.table-wrapper {
+	background: #fff;
+	padding: 20px 25px;
+	border-radius: 3px;
+	min-width: 1000px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-title {        
+	padding-bottom: 15px;
+	background: #435d7d;
+	color: #fff;
+	padding: 16px 30px;
+	min-width: 50%;
+	margin: -20px -25px 10px;
+	border-radius: 3px 3px 0 0;
+	font-size: 24px;
+}
+.table-title-th {        
+	padding-bottom: 15px;
+	background: #778899;
+	color: #fff;
+	padding: 16px 30px;
+	min-width: 40%;
+	margin: -20px -25px 10px;
+	border-radius: 3px 3px 0 0;
+	font-size: 18px;
+}
+.table-title h2 {
+	margin: 5px 0 0;
+	font-size: 24px;
+}
+tfoot {
+	padding-bottom: 15px;
+	background: LightSlateGray;
+	color: #fff;
+	padding: 16px 30px;
+	min-width: 40%;
+	margin: -20px -25px 10px;
+	border-radius: 3px 3px 0 0;
+	font-size: 18px;
+}
+      dl {
+        width: 100%;
+        overflow: hidden;
+        {# background: #dbe0da; #}
+      }
+dt {
+	float: left;
+	width: 26%;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.35;
+  min-height: 40px;
+  margin-bottom: 0;
+  position: sticky;
+  word-break: break-word;
+}
+dd {
+  width: 60%;
+  font-size: 16px; 
+  font-weight: 400; 
+  line-height: 1.35;
+  color: #000000;
+  margin-bottom: 10;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+
+</style>
+
+
+{% if addlocation == 'true' %}
+    <div class="container mt-4">
+        <h1>Legg til ny lokasjon</h1>
+        <form class="needs-validation"  action="?page=UKMinventar_locations" method="POST">
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label for="locationname">Navn på lokasjon:</label>
+                    <input type="text" id="locationname" name="locationname" class="form-control" required>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <button type="submit" class="btn btn-success">Lagre</button>
+            </div>
+            <input type="hidden" name="fromcreatelocation" value="true" />
+        </form>
+    </div>
+
+{% else %}
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-8">
+							<h2><b>Liste over lokasjoner</b></h2>
+						</div>
+					</div>
+				</div>
+    
+    <!-- Add Item Button -->
+    <a href="?page=UKMinventar_locations&do=addlocation" class="btn btn-success mb-3">
+        <i class="bi bi-plus-circle"></i> Legg til ny lokasjon
+    </a>
+    
+    <table id="inventoryTable" class="table table-striped table-hover order-column" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Navn på lokasjon</th>
+                <th>Handlinger</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for location in locations %}
+                <tr>
+                    <td>{{ location.id }}</td>
+                    <td>{{ location.name }}</td>
+                    <td>
+						<a href="?page=UKMinventar_locations&item_id={{ location.id }}&do=deletelocation" class="btn btn-danger btn-sm rounded-0" onclick="return confirm('Er du sikker du vil slette {{ location.name }}?')" data-toggle="tooltip" data-placement="top"><i class="dashicons dashicons-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}

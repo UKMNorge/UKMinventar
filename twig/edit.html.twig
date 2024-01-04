@@ -1,0 +1,79 @@
+{# <div class="container mt-4">
+    <h1>Rediger Gjenstand</h1>
+    <form action="/update-item" method="post">
+        <input type="hidden" name="id" value="{{ item.id }}">
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" class="form-control" value="{{ item.category_name }}" required>
+        </div>
+        <!-- Repeat for other fields (item, location, price, date) -->
+
+        <button type="submit" class="btn btn-primary">Update Item</button>
+    </form>
+</div> #}
+
+<div class="container mt-4">
+    <h1>Rediger Gjenstand</h1>
+    <form class="needs-validation"  action="?page=UKMinventar" method="POST">
+        <div class="form-group row">
+            <div class="col-md-6 mb-4">
+                <label for="category">Kategori:</label>
+                <select id="category" name="category" class="form-control" required>
+                        <option value="" selected="true" disabled>Velg kategori</option>
+                        {% for category in categories %}
+							{% if category['id']  ==  category_id   %}
+								<option value="{{ category['id'] }}" selected>{{ category['name'] }}
+							{% else %}
+                            	<option value="{{ category['id'] }}">{{ category['name'] }}
+							{% endif %}
+                        {% endfor %}
+                </select>
+            </div>    
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label for="item">Gjenstand:</label>
+                <input type="text" id="item" name="item" class="form-control" value="{{ item.item_name }}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label for="item">Annet:</label>
+                <input type="text" id="other" name="other" value="{{ item.item_other }}" placeholder="Serienr, andre opplysninger?" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="location">Lokasjon:</label>
+                <select id="location" name="location" class="form-control" required>
+                        <option value="" selected="true" disabled>Velg lokasjon</option>
+                        {% for location in locations %}
+							{% if location['id']  ==  location_id   %}
+								<option value="{{ location['id'] }}" selected>{{ location['name'] }}
+							{% else %}
+                            	<option value="{{ location['id'] }}">{{ location['name'] }}
+							{% endif %}
+                        {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label for="price">Anskaffelses pris:</label>
+                <input type="number" id="price" name="price" value="{{ item.purchase_cost }}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label for="date">Dato kjøpt:</label>
+                <input type="date" id="date" name="date" value="{{ item.purchase_date }}" class="form-control" required>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <button type="submit" class="btn btn-success">Lagre</button>
+        </div>
+        <input type="hidden" name="fromedit" value="true" />
+		<input type="hidden" name="gjenstandid" value="{{ item.item_id }}" />
+    </form>
+</div>
